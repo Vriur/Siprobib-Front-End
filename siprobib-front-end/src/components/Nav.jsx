@@ -12,10 +12,10 @@ import Typography from '@mui/material/Typography';
  */
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
-import { color } from '@mui/system';
 
-/* Las variables nav, tittle y buttonText son variables en las que se describe los estilos de los elementos 
- * correspondientes. dichas correspondencias se establecen con css={Nombre de la variable}.
+/* 
+ * Las variables nav, appBar, title y buttonText son variables en las que se describe los estilos de los elementos 
+ * correspondientes, Dichas correspondencias se establecen con css={Nombre de la variable}.
  */
 const nav = css({
     flexGrow: 1

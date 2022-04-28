@@ -1,26 +1,22 @@
 import React from 'react';
 import './App.css';
-/*
-import Inicio from './components/Inicio';
-import Layout from './components/Layout';
+
+import Home from './components/Home';
+/*import Layout from './components/Layout';
 import NewSearcher from "./components/NewSearcher";
 import TablaProducciones from "./components/TablaProducciones";*/
 
 //REDUX
-import {Route, Link} from 'react-router-dom';
-
-import logo from './logo.svg';
-import './App.css';
+import {Link, Route, Router, Routes} from 'react-router-dom';
 
 function App() {
   return (
       <div className="App">
-          {/*<Layout>
-              <Route exact path='/' component={Inicio}/>
-              <Route path='/buscador' component={NewSearcher}/>
-              <Route path='/tabla' component={TablaProducciones}/>*/}
-          {/*</Layout>*/}
-          <label>HOLA</label>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          {/*<Route path='/buscador' component={NewSearcher}/>
+          <Route path='/tabla' component={TablaProducciones}/>*/}
+        </Routes>
       </div>
   );
 }
