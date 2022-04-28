@@ -9,8 +9,8 @@ import reportWebVitals from './reportWebVitals';
   a lo largo de toda la aplicación. Para más información consultar la guía oficial de instalación:
   https://react-redux.js.org/tutorials/quick-start.
 */
-import store from './redux/store'
-import { Provider } from 'react-redux'
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 /*
   Import Necesario para poder utilizar React Router, el cual sirve como un Router en toda la aplicación, 
@@ -19,11 +19,15 @@ import { Provider } from 'react-redux'
 */
 import { BrowserRouter } from "react-router-dom";
 
+import Layout from './components/Layout';
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <Layout>
+          <App />
+        </Layout>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
