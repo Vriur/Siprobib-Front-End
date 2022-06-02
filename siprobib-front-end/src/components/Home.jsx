@@ -17,7 +17,7 @@ import { css, jsx } from '@emotion/react';
 const home = css({
   position: 'relative',
   width: '100%',
-  height: '53vh',
+  height: '80vh',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

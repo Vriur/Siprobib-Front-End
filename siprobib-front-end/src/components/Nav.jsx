@@ -46,10 +46,10 @@ class Nav extends React.Component{
                 <NavLink to='/'>
                   <Button css={buttonText}>Inicio</Button>
                 </NavLink>
-                <NavLink to='/nosotros'>
-                  <Button css={buttonText}>Nosotros</Button>
+                <NavLink to='/mision'>
+                  <Button css={buttonText}>Misión</Button>
                 </NavLink>
-                <NavLink to='/contact'>
+                <NavLink to='/contactenos'>
                   <Button css={buttonText}>Contáctenos</Button>
                 </NavLink>
               </Toolbar>

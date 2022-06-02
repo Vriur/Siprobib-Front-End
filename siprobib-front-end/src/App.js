@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 
 import Home from './components/Home';
-/*import Layout from './components/Layout';
-import NewSearcher from "./components/NewSearcher";
+import Mission from './components/Mission';
+import Contact from './components/Contact';
+/*import NewSearcher from "./components/NewSearcher";
 import TablaProducciones from "./components/TablaProducciones";*/
 
 //REDUX
@@ -14,6 +15,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/mision' element={<Mission/>}/>
+          <Route path='/contactenos' element={<Contact/>}/>
           {/*<Route path='/buscador' component={NewSearcher}/>
           <Route path='/tabla' component={TablaProducciones}/>*/}
         </Routes>
