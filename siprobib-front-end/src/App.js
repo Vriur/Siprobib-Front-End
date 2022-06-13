@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 
+import Contact from './components/Contact';
 import Home from './components/Home';
 import Mission from './components/Mission';
-import Contact from './components/Contact';
-/*import NewSearcher from "./components/NewSearcher";
-import TablaProducciones from "./components/TablaProducciones";*/
+import Result from './components/Result';
+import Searcher from './components/Searcher';
 
 //REDUX
 import {Link, Route, Router, Routes} from 'react-router-dom';
@@ -17,8 +17,8 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/mision' element={<Mission/>}/>
           <Route path='/contactenos' element={<Contact/>}/>
-          {/*<Route path='/buscador' component={NewSearcher}/>
-          <Route path='/tabla' component={TablaProducciones}/>*/}
+          <Route path='/buscador' element={<Searcher/>}/>
+          <Route path='/resultado/:id' element={<Result/>}/>
         </Routes>
       </div>
   );

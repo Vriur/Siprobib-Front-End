@@ -46,6 +46,9 @@ class Nav extends React.Component{
                 <NavLink to='/'>
                   <Button css={buttonText}>Inicio</Button>
                 </NavLink>
+                <NavLink to='/buscador'>
+                  <Button css={buttonText}>Buscador</Button>
+                </NavLink>
                 <NavLink to='/mision'>
                   <Button css={buttonText}>Misión</Button>
                 </NavLink>
