@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Mission from './components/Mission';
 import Result from './components/Result';
 import Searcher from './components/Searcher';
+import Logo from './resources/logo-inie.png';
 
 //REDUX
 import {Link, Route, Router, Routes} from 'react-router-dom';

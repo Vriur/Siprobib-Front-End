@@ -65,11 +65,10 @@ class Home extends React.Component{
               Sistema de Producciones Bibliográficas
             </h1>
             <h2 css={subtitle}>
-              Encontra blablalblalsv lsdfafasfaasd addasd dasdasd asdasdasd asdasd
+              Falta texto para colocar acá
             </h2>                   
           </div>
         </section>
-        {/*<Buscador/>*/}
       </div>
     )
   }

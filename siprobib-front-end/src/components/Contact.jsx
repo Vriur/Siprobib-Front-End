@@ -1,4 +1,8 @@
 import React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
 import TwitterLogo from '../resources/twitter.png';
 import InstagramLogo from '../resources/instagram.png';
 import GmailLogo from '../resources/gmail.png';
@@ -20,26 +24,36 @@ const logo = css({
     margin: '5px',
 });
 
+// Estilo correspondiente para el componente carta que cuenta con la información de misión.
+const card = css({
+    marginTop: '50px',
+    padding: '50px'
+});
+
 class Contact extends React.Component{
     render(){
         return(
-            <div className="contactWrapper">
-                <div className="content">
-                    <h1>Contáctenos</h1>
-                    <p>  
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum, sed. 
-                        Quos iure voluptatibus earum consequuntur voluptate quisquam veritatis possimus 
-                        illum aliquam ex, sequi temporibus explicabo quidem, quo maxime amet! Dolorum. 
-                    </p>
-                </div>
-                <br></br>
-                <br></br>
-                <div className="imgCnt">
-                    <a className="a1" href={"https://twitter.com/"}> <img css={logo} className='img' src={TwitterLogo} alt="Twitter" ></img> </a>
-                    <a className="a2" href={"https://www.instagram.com/"}> <img css={logo} className='img1' src={InstagramLogo} alt="Instagram" ></img> </a>
-                    <a className="a3" href={"https://www.google.co.cr/"}> <img css={logo} className='img2' src={GmailLogo} alt="Gmail" ></img> </a>
-                </div>
-            </div>
+            <Grid container direction="row" justifyContent="center" alignItems="center">
+            <Grid item xs={2} /> {/* Etiqueda utilizada para centrar la tarjeta. */}
+            <Grid item xs={8}>
+                <Card css={card}>
+                    <CardContent>
+                        <h1>Contáctenos</h1>
+                        <p>  
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum, sed. 
+                            Quos iure voluptatibus earum consequuntur voluptate quisquam veritatis possimus 
+                            illum aliquam ex, sequi temporibus explicabo quidem, quo maxime amet! Dolorum. 
+                        </p>
+                    </CardContent>
+                    <CardActions class="justify-center">
+                        <a className="a1" href={"https://twitter.com/"}> <img css={logo} className='img' src={TwitterLogo} alt="Twitter" ></img> </a>
+                        <a className="a2" href={"https://www.instagram.com/"}> <img css={logo} className='img1' src={InstagramLogo} alt="Instagram" ></img> </a>
+                        <a className="a3" href={"https://www.google.co.cr/"}> <img css={logo} className='img2' src={GmailLogo} alt="Gmail" ></img> </a>
+                    </CardActions>
+                </Card>
+            </Grid>
+            <Grid item xs={2} /> {/* Etiqueda utilizada para centrar la tarjeta. */}
+        </Grid>
         );
     }
 }
