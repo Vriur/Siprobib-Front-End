@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Banner from '../resources/banner.jpg';
 
-//import  Buscador  from './Buscador';
-
 /* Se siguió la guía que se encuentra en https://emotion.sh/docs/css-prop para permitir que el motor de css Emotion, 
  * el cual usa Material UI, permitiera estilizar los componentes y etiquetas HTML. La línea de abajo es un macro que 
  * permite el buen funcionamiento de Emotion, por lo que es muy importante no eliminarlo.

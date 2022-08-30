@@ -102,7 +102,6 @@ const card = css({
 function Result(props){
     let { id } = useParams();
     const data = baseDeDatos.filter(elemento => elemento.id == id);
-    console.log(data[0].title);
 
     return(
         <div>

@@ -171,7 +171,7 @@ function Searcher(props){
                 <div className="searcher">
                     <Box component="form" noValidate autoComplete="on">
                         <FormControl>
-                            <TextField id="search-bar" label="Terminos de búsqueda" variant="outlined" onChange={e => setSearchString(e.target.value)} css={searchField} />
+                            <TextField required id="search-bar" label="Terminos de búsqueda" variant="outlined" onChange={e => setSearchString(e.target.value)} css={searchField} />
                         </FormControl>
                         <Button id="submit-button" variant="contained" color="primary" onClick={handleSubmit} css={searchButton}><span className="material-symbols-outlined">search</span>Buscar</Button>
                         <br/>

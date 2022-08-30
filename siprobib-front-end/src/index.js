@@ -5,6 +5,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+/*
+  Import Necesario para poder utilizar React Router, el cual sirve como un Router en toda la aplicación, 
+  permitiendo enlazar cada una de las vistas de la misma. Para más información consultar la guía oficial
+  de instalación: https://reactrouter.com/docs/en/v6/getting-started/installation#basic-installation.
+*/
+import { BrowserRouter } from "react-router-dom";
+
 /* 
   Imports necesarios para utilizar Redux a lo largo de la aplicación. El Provider permite utilizar Redux
   a lo largo de toda la aplicación. Para más información consultar la guía oficial de instalación:
@@ -13,23 +20,12 @@ import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 
-/*
-  Import Necesario para poder utilizar React Router, el cual sirve como un Router en toda la aplicación, 
-  permitiendo enlazar cada una de las vistas de la misma. Para más información consultar la guía oficial
-  de instalación: https://reactrouter.com/docs/en/v6/getting-started/installation#basic-installation.
-*/
-import { BrowserRouter } from "react-router-dom";
-
-import Layout from './components/Layout';
-
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Layout>
-          <App />
-        </Layout>
+      <BrowserRouter>    
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
