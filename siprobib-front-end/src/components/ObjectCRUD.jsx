@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from 'react';
-import AddObjectComponent from './AddObjectComponent';
+import Dialog from './Dialog';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,25 +13,18 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 /**
- * Este vector cuenta con cada columna que debe de mostrarse para cada uno de los CRUD según el número de ID:
- * 0 - Producciones.
- * 1 - Autores.
- * 2 - Categorías.
- * 3 - Descriptores.
- * 4 - Ubicaciones.
+ * Este vector cuenta con cada columna que debe de mostrarse para cada uno de los CRUD.
  */
-const columnsLabels = [
-    ['Código', 'Título', 'Año', 'Categoría', 'Ubicación', 'Acciones'],
-    ['Id', 'Nombre', 'Tipo', 'Acciones'],
-    ['Categoría', 'Acciones'],
-    ['Descriptor', 'Acciones'],
-    ['Ubicación', 'Acciones']
-]
-
-const objectType = ['Producción', 'Autor', 'Categoría', 'Descriptor', 'Ubicación']
+const columnsLabels = {
+    'Producción': ['Código', 'Título', 'Año', 'Categoría', 'Ubicación', 'Acciones'],
+    'Autor': ['Id', 'Nombre', 'Tipo', 'Acciones'],
+    'Categoría': ['Categoría', 'Acciones'],
+    'Descriptor': ['Descriptor', 'Acciones'],
+    'Ubicación': ['Ubicación', 'Acciones']
+};
 
 function ObjectCRUD(props){
-    const objectId = props.objectId;
+    const objectType = props.objectType;
     const [addObjectOpen, setAddObjectOpen] = useState(false);
 
     const handleAddObject = () => {
@@ -41,17 +34,13 @@ function ObjectCRUD(props){
     return(
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}} >
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center', marginBottom: '10px'}}>
-                
-                { /** Con esta condición se impide que el campo de texto se muestre para producciones y autores. **/
-                    objectId < 2 ? null : <TextField size='small'></TextField>
-                }
-                <Button id="logout" variant="contained" color="primary" onClick={handleAddObject} sx={{margin: '0 0 15px 15px'}} >Agregar {objectType[objectId]}</Button>
+                <Button id="logout" variant="contained" color="primary" onClick={handleAddObject} sx={{margin: '0 0 15px 15px'}} >Agregar {objectType}</Button>
             </Box>
             <TableContainer>
-                <Table sx={{ minWidth: 650 }} size='small' aria-label='Tabla de registros'>
+                <Table sx={{minWidth: 650}} size='small' aria-label='Tabla de registros'>
                     <TableHead>
                         <TableRow>
-                            {columnsLabels[objectId].map((column) => (
+                            {columnsLabels[objectType].map((column) => (
                                 <TableCell>{column}</TableCell>
                             ))}
                         </TableRow>
@@ -61,7 +50,7 @@ function ObjectCRUD(props){
                     </TableBody>
                 </Table>
             </TableContainer>
-            <AddObjectComponent objectId={objectId} openState={addObjectOpen} action={handleAddObject} />
+            <Dialog objectType={objectType} crudAction={'Agregar'} entryId={null} state={addObjectOpen} stateControl={handleAddObject} />
         </Box>
     );
 }

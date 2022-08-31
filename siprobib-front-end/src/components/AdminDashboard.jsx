@@ -67,19 +67,19 @@ export default function AdminDashboard() {
             <Tab label='Ubicación' {...a11yProps(4)} />
         </Tabs>
         <TabPanel value={value} index={0} >
-            <ObjectCRUD objectId={0} />
+            <ObjectCRUD objectType={'Producción'} />
         </TabPanel>
         <TabPanel value={value} index={1} >
-            <ObjectCRUD objectId={1} />
+            <ObjectCRUD objectType={'Autor'} />
         </TabPanel>
         <TabPanel value={value} index={2} >
-            <ObjectCRUD objectId={2} />
+            <ObjectCRUD objectType={'Categoría'} />
         </TabPanel>
         <TabPanel value={value} index={3} >
-            <ObjectCRUD objectId={3} />
+            <ObjectCRUD objectType={'Descriptor'} />
         </TabPanel>
         <TabPanel value={value} index={4} >
-            <ObjectCRUD objectId={4} />
+            <ObjectCRUD objectType={'Ubicación'} />
         </TabPanel>
     </Box>
   );
