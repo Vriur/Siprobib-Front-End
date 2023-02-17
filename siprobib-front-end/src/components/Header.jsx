@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import Nav from './Nav';
 import UCRLogoHeader from "../resources/logo_ucr.png";

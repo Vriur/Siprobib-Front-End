@@ -6,10 +6,10 @@ import Card from '@mui/material/Card';
 import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import GridResult from './GridResults';
+import GridResult from '../SearchComponents/GridResults';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import Select from './Select';
+import Select from '../SearchComponents/Select';
 import TextField from '@mui/material/TextField';
 
 /* Se siguió la guía que se encuentra en https://emotion.sh/docs/css-prop para permitir que el motor de css Emotion, 

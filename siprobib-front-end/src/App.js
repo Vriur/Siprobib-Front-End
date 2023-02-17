@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 
-import Contact from './components/Contact';
 import Header from './components/Header';
-import Home from './components/Home';
-import Login from './components/Login';
-import Mission from './components/Mission';
-import Result from './components/Result';
-import Searcher from './components/Searcher';
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './components/Pages/AdminDashboard';
+import Contact from './components/Pages/Contact';
+import Home from './components/Pages/Home';
+import Login from './components/Pages/Login';
+import Mission from './components/Pages/Mission';
+import Result from './components/Pages/Result';
+import Searcher from './components/Pages/Searcher';
 import Logo from './resources/logo-inie.png';
 
 //React-Router-Dom

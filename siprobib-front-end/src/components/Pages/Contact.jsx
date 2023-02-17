@@ -3,9 +3,9 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
-import TwitterLogo from '../resources/twitter.png';
-import InstagramLogo from '../resources/instagram.png';
-import GmailLogo from '../resources/gmail.png';
+import TwitterLogo from '../../resources/twitter.png';
+import InstagramLogo from '../../resources/instagram.png';
+import GmailLogo from '../../resources/gmail.png';
 
 /* Se siguió la guía que se encuentra en https://emotion.sh/docs/css-prop para permitir que el motor de css Emotion, 
  * el cual usa Material UI, permitiera estilizar los componentes y etiquetas HTML. La línea de abajo es un macro que 
