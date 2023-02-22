@@ -81,9 +81,17 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
         }
     }));
 
+    /*********************************************************************************************+ */
     useEffect(() => {
-        if(dialogState.crudAction !== constants.ADD_ACTION){
-            request(author, dialogState.objectClass, constants.DETAIL_ACTION, tableState, toastState);
+        switch(dialogState.crudAction){
+            case constants.ADD_ACTION:
+                break;
+            case constants.EDIT_ACTION:
+                request(author, dialogState.objectClass, constants.LOAD_ACTION, tableState, toastState);
+                break;
+            default:
+                request(author, dialogState.objectClass, constants.DETAIL_ACTION, tableState, toastState);
+                break;
         }
     }, []);
 
@@ -170,21 +178,11 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
                 </Typography>
 
                 <Typography id='name_author'>
-                    {constants.AUTHOR_NAME + 
-                        (author.instance.type === false 
-                            ? author.instance.lastName + ', ' + author.instance.name
-                            : author.instance.institutionalName
-                        )
-                    }
+                    {constants.AUTHOR_NAME + author.instance.name}
                 </Typography>
 
                 <Typography id='type_author'>
-                    {constants.AUTHOR_TYPE + 
-                        (author.instance.type === false 
-                            ? 'Persona'
-                            : 'Institución'
-                        )
-                    }
+                    {constants.AUTHOR_TYPE + author.instance.type}
                 </Typography>
             </>    
         );
@@ -208,7 +206,7 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
                     id='name_author' 
                     label={constants.AUTHOR_NAME} 
                     value={author.instance.name} 
-                    required={author.requireName}
+                    required={!author.instance.type}
                     fullWidth={true} 
                     handleChange={author.handleName} />
 
@@ -216,7 +214,7 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
                     id='last_name_author' 
                     label={constants.AUTHOR_LASTNAME} 
                     value={author.instance.lastName} 
-                    required={author.requireLastName} 
+                    required={!author.instance.type} 
                     fullWidth={true} 
                     handleChange={author.handleLastName} />
 
@@ -224,7 +222,7 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
                     id='institutional_name_author' 
                     label={constants.AUTHOR_INSTITUTIONAL_NAME} 
                     value={author.instance.institutionalName} 
-                    required={author.requireInstitutionalName} 
+                    required={author.instance.type} 
                     fullWidth={true} 
                     handleChange={author.handleInstitutionalName} />
             </>
@@ -239,21 +237,11 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
                 </Typography>
 
                 <Typography id='name_author'>
-                    {constants.AUTHOR_NAME + 
-                        (author.instance.type === false 
-                            ? author.instance.lastName + ', ' + author.instance.name
-                            : author.instance.institutionalName
-                        )
-                    }
+                    {constants.AUTHOR_NAME + author.instance.name}
                 </Typography>
 
                 <Typography id='type_author'>
-                    {constants.AUTHOR_TYPE + 
-                        (author.instance.type === false 
-                            ? 'Persona'
-                            : 'Institución'
-                        )
-                    }
+                    {constants.AUTHOR_TYPE + author.instance.type}
                 </Typography>
             </>    
         );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as constants from '../../constants';
 import IndexTableRow from './IndexTableRow';
 
@@ -14,10 +14,6 @@ const IndexTable = ({data, dialogState}) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalRowsNumber, setTotalRowsNumber] = useState(data.length);
-
-    useEffect(() => {
-        console.log(data);
-    }, [])
     
     function handleChangePage(event, newPage){
         setPage(newPage);

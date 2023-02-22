@@ -14,6 +14,9 @@ export function request(objectInstance, objectClass, crudAction, tableState, toa
         case constants.REMOVE_ACTION:
             remove(objectInstance, objectClass, tableState, toastState);
             break;
+        case constants.LOAD_ACTION:
+            load(objectInstance, objectClass);
+            break;
         default:
             getAll(objectClass, tableState);
             break;
@@ -62,18 +65,6 @@ async function edit(objectInstance, objectClass, tableState, toastState){
         .catch((error) => toastState.handleToast(constants.EDIT_ERROR_MESSAGE, constants.ERROR));
 }
 
-async function getAll(objectClass, tableState) {
-    const request = {
-        method: constants.REQUEST_GET,
-        crossDomain: true,
-        headers: constants.REQUEST_HEADER,
-    };
-    await fetch(constants.BACKEND_URL + constants.CLASSES[objectClass], request)
-        .then((response) => response.json())
-        .then((data) => tableState.handleUpdate(data))
-        .catch((error) => { console.error(error); });
-}
-
 async function remove(objectInstance, objectClass, tableState, toastState){
     const request = {
         method: constants.REQUEST_DELETE,
@@ -87,3 +78,27 @@ async function remove(objectInstance, objectClass, tableState, toastState){
         })
         .catch((error) => toastState.handleToast(constants.REMOVE_ERROR_MESSAGE, constants.ERROR));
 }    
+
+async function getAll(objectClass, tableState) {
+    const request = {
+        method: constants.REQUEST_GET,
+        crossDomain: true,
+        headers: constants.REQUEST_HEADER,
+    };
+    await fetch(constants.BACKEND_URL + constants.CLASSES[objectClass], request)
+        .then((response) => response.json())
+        .then((data) => tableState.handleUpdate(data))
+        .catch((error) => { console.error(error); });
+}
+
+async function load(objectInstance, objectClass){
+    const request = {
+        method: constants.REQUEST_GET,
+        crossDomain: true,
+        headers: constants.REQUEST_HEADER,
+    };
+    await fetch(constants.BACKEND_URL + constants.CLASSES[objectClass] + '/' + constants.LOAD + objectInstance.instance.id, request)
+        .then((response) => response.json())
+        .then((data) => objectInstance.handleUpdate(data))
+        .catch((error) => { console.error('Error:', error); });
+}

@@ -1,4 +1,5 @@
 export const BACKEND_URL = 'http://localhost:7001/siprobib/';
+export const LOAD = "cargar/";
 export const REQUEST_GET = 'GET';
 export const REQUEST_POST = 'POST';
 export const REQUEST_PUT = 'PUT';
@@ -8,6 +9,7 @@ export const REQUEST_HEADER = { 'Content-Type': 'application/json' };
 export const ADD_ACTION = 'Agregar';
 export const DETAIL_ACTION = 'Detalle'; 
 export const EDIT_ACTION = 'Editar';
+export const LOAD_ACTION = 'Cargar';
 export const REMOVE_ACTION = 'Remover';
 
 export const AUTHOR_CLASS = 'autor';
