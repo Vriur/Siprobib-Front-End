@@ -5,12 +5,14 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import MUITextField from '@mui/material/TextField';
 
-function TextField({id, label, value, required, fullWidth, handleChange}) {
+function TextField({id, label, value, required, fullWidth, handleChange, multiline = false, maxRows = 5}) {
     return(
         <FormControl id={id} fullWidth={fullWidth} >
             <MUITextField 
                 label={label} 
                 value={value} 
+                multiline={multiline}
+                maxRows={maxRows}
                 required={required} 
                 onChange={handleChange} 
                 variant='outlined' 

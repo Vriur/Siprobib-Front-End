@@ -31,7 +31,7 @@ export const CLASSES = {
  * al final de cada vector son para representar a la columna de botones (editar, detalles, remover) para cada fila.
  */
 export const COLUMN_LABELS = {
-    'producción': ['Código', 'Título', 'Año', 'Categoría', 'Ubicación', ''],
+    'producción': ['Título', 'Año', 'Categoría', 'Autores', 'Descriptores', ''],
     'autor': ['Nombre', 'Tipo', ''],
     'categoría': ['Categoría', ''],
     'descriptor': ['Descriptor', ''],
@@ -62,6 +62,30 @@ export const DESCRIPTOR_DESCRIPTION = 'Detalle del descriptor: ';
 export const LOCATION_ID = 'Identificador de la ubicación: ';
 export const LOCATION_DETAIL = 'Detalle de la ubicación: ';
 
+export const PRODUCTION_ID = 'Identificador de la producción: ';
+export const PRODUCTION_TITLE = 'Título de la producción: ';
+export const PRODUCTION_AUTHORS = 'Autores de la producción: ';
+export const PRODUCTION_DESCRIPTORS = 'Descriptores de la producción: ';
+export const PRODUCTION_CATEGORY = 'Categoría de la producción: ';
+export const PRODUCTION_YEAR = 'Año de la producción: ';
+export const PRODUCTION_LOCATION = 'Ubicación de la producción: ';
+export const PRODUCTION_CLASIFICATION = 'Clasificación de la producción: ';
+export const PRODUCTION_WEB_DIRECTION = 'Dirección web de la producción: ';
+export const PRODUCTION_SUMMARY = 'Resumen de la producción: ';
+
+export const PRODUCTION_YEAR_OPTIONS = () => {
+    let max = new Date().getFullYear()
+    let min = 1950
+    let years = []
+
+    for (let iterator = max; iterator >= min; --iterator) {
+        let year = {label: iterator.toString(), value: iterator}
+        years.push(year);
+    }
+
+    return years;
+};
+
 export const ERROR = 'error';
 export const SUCCESS = 'success';
 export const ADD_ERROR_MESSAGE = "No se ha agregar correctamente.";
@@ -75,5 +99,9 @@ export const LOG_OUT = 'Cerrar Sesión';
 export const CLOSE = 'Cerrar';
 
 export const ERROR_TEXTFIELD_VALIDATOR = 'Ingrese información en el campo obligatorio';
+export const ERROR_AUTOCOMPLETEFIELD_VALIDATOR = 'Seleccione una opción';
 
 export const TABLE_PAGINATION_LABEL = 'Cantidad de filas por página';
+
+export const NO_OPTION_TEXT = 'No existe la opción';
+export const LOADING = 'Cargando'; 

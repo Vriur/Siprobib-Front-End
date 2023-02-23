@@ -81,7 +81,6 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
         }
     }));
 
-    /*********************************************************************************************+ */
     useEffect(() => {
         switch(dialogState.crudAction){
             case constants.ADD_ACTION:

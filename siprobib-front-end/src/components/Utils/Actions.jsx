@@ -87,7 +87,19 @@ async function getAll(objectClass, tableState) {
     };
     await fetch(constants.BACKEND_URL + constants.CLASSES[objectClass], request)
         .then((response) => response.json())
-        .then((data) => tableState.handleUpdate(data))
+        .then(async (data) => {
+
+            if(objectClass === constants.PRODUCTION_CLASS){
+                for await (const element of data){
+                    delete element.summary;
+                    delete element.clasification;
+                    delete element.webDirection;
+                    delete element.location;
+                };
+            }
+
+            tableState.handleUpdate(data);
+        })
         .catch((error) => { console.error(error); });
 }
 
@@ -99,6 +111,45 @@ async function load(objectInstance, objectClass){
     };
     await fetch(constants.BACKEND_URL + constants.CLASSES[objectClass] + '/' + constants.LOAD + objectInstance.instance.id, request)
         .then((response) => response.json())
-        .then((data) => objectInstance.handleUpdate(data))
+        .then((data) => objectInstance.handleLoad(data))
         .catch((error) => { console.error('Error:', error); });
+}
+
+export async function loadAutocompleteOptions(objectClass, handleUpdate) {
+    const request = {
+        method: constants.REQUEST_GET,
+        crossDomain: true,
+        headers: constants.REQUEST_HEADER,
+    };
+    await fetch(constants.BACKEND_URL + constants.CLASSES[objectClass], request)
+        .then((response) => response.json())
+        .then(async (data) => {
+            handleUpdate(autocompleteOptions(objectClass, data));
+        })
+        .catch((error) => { console.error(error); });
+}
+
+export function autocompleteOptions(objectClass, data) {
+    switch(objectClass){
+        case constants.LOCATION_CLASS:
+            for (const element of data){
+                element.label = element.detail;
+                delete element.detail;
+            };
+            break;
+        case constants.AUTHOR_CLASS:
+            for (const element of data){
+                element.label = element.name;
+                delete element.name;
+                delete element.type;
+            };
+            break;
+        default:
+            for (const element of data){
+                element.label = element.description;
+                delete element.description;
+            };
+            break;
+    }
+    return data;
 }

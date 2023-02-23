@@ -13,6 +13,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogView from '@mui/material/Dialog';
+import Production from './CRUD/Production';
 
 function Dialog({state, tableState, toastState}){
   const objectInstanceReference = useRef(0);
@@ -30,7 +31,12 @@ function Dialog({state, tableState, toastState}){
   const dialogBody = (objectClass) => {
     switch(objectClass){
       case constants.PRODUCTION_CLASS:
-        return('0');
+        return(<Production
+                  dialogState={state} 
+                  tableState={tableState} 
+                  toastState={toastState} 
+                  checkFormValidity={checkFormValidity}
+                  ref={objectInstanceReference} />);
       case constants.AUTHOR_CLASS:
         return(<Author
                   dialogState={state} 
