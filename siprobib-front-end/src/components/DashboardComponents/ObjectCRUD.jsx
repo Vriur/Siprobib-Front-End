@@ -28,16 +28,13 @@ function ObjectCRUD({objectClass}){
 
     const [tableState, setTableState] = useState({
         tableContent: [],
-        contentFetch: false,
         fetch: function () {
-            this.contentFetch=false;
             request(null, dialogState.objectClass, null, tableState, null);
         },
         handleUpdate: function(data){
             setTableState({
                 ...tableState,
-                tableContent: data,
-                contentFetch: true
+                tableContent: data
             });
         }
     });
@@ -83,19 +80,15 @@ function ObjectCRUD({objectClass}){
                 <Button 
                     id='add' 
                     text={constants.ADD_ACTION + ' ' + objectClass}
-                    isButtonDisabled={false}
                     handleClick={handleClick}
                     color='primary' />
             </Box>
 
-            {
-                tableState.contentFetch &&
-                <TableContainer>
-                    <IndexTable 
-                        data={tableState.tableContent} 
-                        dialogState={dialogState} />
-                </TableContainer>
-            }
+            <TableContainer>
+                <IndexTable 
+                    data={tableState.tableContent} 
+                    dialogState={dialogState} />
+            </TableContainer>
             
             <Dialog 
                 state={dialogState} 

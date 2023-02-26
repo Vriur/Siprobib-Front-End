@@ -1,21 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import * as constants from './../../constants';
+import Button from './../Utils/Button';
+import TextField from './../Utils/TextField';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-function Login(props){
+function Login(){
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleUsername(event){
+        setUsername(event.target.value);
+    }
+
+    function handlePassword(event){
+        setPassword(event.target.value);
+    }
+
+    function handleSubmit(){
+
+    }
+
     return(
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center',  flexDirection: 'column', height: '100vh'}}>
             <Card sx={{display: 'flex', justifyContent: 'center', alignItems: 'center',  flexDirection: 'column', width: '40vw', maxWidth: '350px'}}>
                 <CardContent>
-                    <Typography variant='h5'>Iniciar Sessión</Typography><br/>
-                    <TextField required id="username" label="Nombre de usuario" variant="outlined" sx={{margin: '20px'}} /><br/>
-                    <TextField required id="password" label="Contraseña" type='password' variant="outlined" sx={{margin: '20px'}} /><br/>
-                    <Button id="submit-button" variant="contained" color="primary" sx={{margin: '20px'}} >Iniciar Sessión</Button>
+                    <Typography variant='h5'>{constants.LOG_IN}</Typography>
+
+                    <TextField 
+                        id='username' 
+                        label={constants.LOG_IN_USERNAME}
+                        value={username} 
+                        required={true} 
+                        fullWidth={true} 
+                        handleChange={handleUsername} />
+
+                    <TextField 
+                        id='password' 
+                        label={constants.LOG_IN_PASSWORD}
+                        value={password} 
+                        required={true} 
+                        fullWidth={true} 
+                        handleChange={handlePassword} />
+
+                    <Button 
+                        id='submit_button'
+                        text={constants.LOG_IN}
+                        handleClick={handleSubmit}
+                        color='primary' />
+
                 </CardContent>
             </Card>
         </Box>

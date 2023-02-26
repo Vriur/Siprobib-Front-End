@@ -6,7 +6,7 @@ import TextField from './../../Utils/TextField';
 
 import Typography from '@mui/material/Typography';
 
-const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidity}, ref) => {
+const Author = forwardRef(({dialogState, tableState, toastState, validForm}, ref) => {
     const [author, setAuthor] = useState({
         instance: {
             id: dialogState.instanceId,
@@ -67,6 +67,16 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
                 instance: {
                     id: data.id,
                     name: data.name,
+                    type: data.type
+                }
+            });
+        },
+        handleLoad: function (data){
+            setAuthor({
+                ...author,
+                instance: {
+                    id: data.id,
+                    name: data.name,
                     lastName: data.lastName,
                     institutionalName: data.institutionalName,
                     type: data.type
@@ -111,9 +121,22 @@ const Author = forwardRef(({dialogState, tableState, toastState, checkFormValidi
                 institutionalNameElement.style.display = 'none';
             }
         }
-        
-        checkFormValidity();
     }, [author.instance.type]);
+
+    useEffect(() => {
+        let validation = false;
+        
+        // Recordemos que el false de author.instance.type representa a una persona, mientras que el true es una
+        // institución.
+        if(!author.instance.type){
+            validation = author.instance.name && author.instance.lastName;
+        }
+        else{
+            validation = author.instance.institutionalName;
+        }
+    
+        validForm(!!validation);
+    }, [author.instance])
 
     function renderAction(){
         switch(dialogState.crudAction){

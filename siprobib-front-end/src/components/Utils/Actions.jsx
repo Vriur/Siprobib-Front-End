@@ -87,19 +87,7 @@ async function getAll(objectClass, tableState) {
     };
     await fetch(constants.BACKEND_URL + constants.CLASSES[objectClass], request)
         .then((response) => response.json())
-        .then(async (data) => {
-
-            if(objectClass === constants.PRODUCTION_CLASS){
-                for await (const element of data){
-                    delete element.summary;
-                    delete element.clasification;
-                    delete element.webDirection;
-                    delete element.location;
-                };
-            }
-
-            tableState.handleUpdate(data);
-        })
+        .then((data) => tableState.handleUpdate(data))
         .catch((error) => { console.error(error); });
 }
 
@@ -132,23 +120,23 @@ export async function loadAutocompleteOptions(objectClass, handleUpdate) {
 export function autocompleteOptions(objectClass, data) {
     switch(objectClass){
         case constants.LOCATION_CLASS:
-            for (const element of data){
-                element.label = element.detail;
-                delete element.detail;
-            };
+            data.forEach(location => {
+                location.label = location.detail;
+                delete location.detail;
+            });
             break;
         case constants.AUTHOR_CLASS:
-            for (const element of data){
-                element.label = element.name;
-                delete element.name;
-                delete element.type;
-            };
+            data.forEach(author => {
+                author.label = author.name;
+                delete author.name;
+                delete author.type;
+            });
             break;
         default:
-            for (const element of data){
+            data.forEach(element => {
                 element.label = element.description;
                 delete element.description;
-            };
+            });
             break;
     }
     return data;

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import * as constants from '../../constants';
 import { request } from './../Utils/Actions';
 import Author from './CRUD/Author'
@@ -17,16 +17,7 @@ import Production from './CRUD/Production';
 
 function Dialog({state, tableState, toastState}){
   const objectInstanceReference = useRef(0);
-  const [actionButtonDisabled, setActionButtonDisabled] = useState(false);
-
-  useMemo(() => {
-    if(state.crudAction === constants.REMOVE_ACTION){
-      return setActionButtonDisabled(false);
-    }
-    else{
-      return setActionButtonDisabled(true);
-    }
-  }, [state.crudAction]);
+  const [validForm, setValidForm] = useState(true);
 
   const dialogBody = (objectClass) => {
     switch(objectClass){
@@ -35,41 +26,38 @@ function Dialog({state, tableState, toastState}){
                   dialogState={state} 
                   tableState={tableState} 
                   toastState={toastState} 
-                  checkFormValidity={checkFormValidity}
+                  validForm={setValidForm}
                   ref={objectInstanceReference} />);
       case constants.AUTHOR_CLASS:
         return(<Author
                   dialogState={state} 
                   tableState={tableState} 
                   toastState={toastState} 
-                  checkFormValidity={checkFormValidity}
+                  validForm={setValidForm}
                   ref={objectInstanceReference} />);
       case constants.CATEGORY_CLASS:
         return(<Category
                   dialogState={state} 
                   tableState={tableState} 
-                  toastState={toastState} 
+                  toastState={toastState}
+                  validForm={setValidForm} 
                   ref={objectInstanceReference} />);
       case constants.DESCRIPTOR_CLASS:
         return(<Descriptor
                   dialogState={state} 
                   tableState={tableState} 
-                  toastState={toastState} 
+                  toastState={toastState}
+                  validForm={setValidForm} 
                   ref={objectInstanceReference} />);
       default:
         return(<Location 
                   dialogState={state} 
                   tableState={tableState} 
                   toastState={toastState} 
+                  validForm={setValidForm}
                   ref={objectInstanceReference} />);
     }
   };
-
-  function checkFormValidity(){
-    let form = document.getElementById('form');
-    let validity = form.checkValidity();
-    setActionButtonDisabled(!validity);
-  }
 
   function handleSubmit(){
     let requestData = objectInstanceReference.current.getInstanceData();
@@ -103,7 +91,6 @@ function Dialog({state, tableState, toastState}){
             <Box 
               id='form' 
               component='form' 
-              onChange={checkFormValidity} 
               sx={{display: 'flex', justifyContent: 'center', flexDirection: 'column', margin: '2vw', width: 'fit-content'}} >
               { dialogBody(state.objectClass) }
             </Box> 
@@ -118,14 +105,13 @@ function Dialog({state, tableState, toastState}){
           <Button 
             id='submit_button' 
             text={state.crudAction}
-            isButtonDisabled={actionButtonDisabled}
+            isButtonDisabled={state.crudAction === constants.REMOVE_ACTION ? false : !validForm}
             handleClick={handleSubmit}
             color='primary' />
         }
         <Button 
           id='close_button' 
           text={constants.CLOSE}
-          isButtonDisabled={false}
           handleClick={handleClose}
           color='secondary' />
       </DialogActions>

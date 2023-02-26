@@ -5,7 +5,7 @@ import TextField from '../../Utils/TextField';
 
 import Typography from '@mui/material/Typography';
 
-const Descriptor = forwardRef(({dialogState, tableState, toastState}, ref) => {
+const Descriptor = forwardRef(({dialogState, tableState, toastState, validForm}, ref) => {
     const [descriptor, setDescriptor] = useState({
         instance: {
             id: dialogState.instanceId,
@@ -42,6 +42,11 @@ const Descriptor = forwardRef(({dialogState, tableState, toastState}, ref) => {
             request(descriptor, dialogState.objectClass, constants.DETAIL_ACTION, tableState, toastState);
         }
     }, []);
+
+    useEffect(() => {
+        let validation = descriptor.instance.description.length;
+        validForm(!!validation);
+    }, [descriptor.instance])
 
     function renderAction(){
         switch(dialogState.crudAction){

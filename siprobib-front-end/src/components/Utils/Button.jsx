@@ -2,7 +2,7 @@ import React from 'react';
 
 import MUIButton from '@mui/material/Button';
 
-function Button({id, text, isButtonDisabled, handleClick, color}){
+function Button({id, text, handleClick, color, isButtonDisabled = false}){
     
     return(
         <MUIButton 
@@ -11,7 +11,7 @@ function Button({id, text, isButtonDisabled, handleClick, color}){
             onClick={handleClick}
             color={color}
             variant='contained' 
-            sx={{margin: '0 0 15px 15px'}}  >
+            sx={{margin: '15px'}}  >
                 {text}
         </MUIButton> 
     );

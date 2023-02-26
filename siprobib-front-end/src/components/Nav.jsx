@@ -1,65 +1,54 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import * as constants from './../constants';
 
+import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-/* Se siguió la guía que se encuentra en https://emotion.sh/docs/css-prop para permitir que el motor de css Emotion, 
- * el cual usa Material UI, permitiera estilizar los componentes y etiquetas HTML. La línea de abajo es un macro que 
- * permite el buen funcionamiento de Emotion, por lo que es muy importante no eliminarlo.
- */
-/** @jsxImportSource @emotion/react */
-import { css, jsx } from '@emotion/react';
-
-/* 
- * Las variables nav, appBar, title y buttonText son variables en las que se describe los estilos de los elementos 
- * correspondientes, Dichas correspondencias se establecen con css={Nombre de la variable}.
- */
-const nav = css({
+const nav = {
     flexGrow: 1
-});
+};
 
-const appBar = css({
+const appBar = {
     main: '#999999',
     contrastText: '#fff',
-});
+};
 
-const title = css({
+const title = {
     flexGrow: 1,
-});
+};
 
-const buttonText = css({
+const buttonText = {
     color: 'white',
-});
+};
 
-class Nav extends React.Component{
-    render(){
-        return(
-          <nav css={nav}>
-            <AppBar css={appBar} position="static">
-              <Toolbar>                    
-                <Typography variant="h6" css={title}>
-                  SIPROBIB
-                </Typography>
-                <NavLink to='/'>
-                  <Button css={buttonText}>Inicio</Button>
-                </NavLink>
-                <NavLink to='/buscador'>
-                  <Button css={buttonText}>Buscador</Button>
-                </NavLink>
-                <NavLink to='/mision'>
-                  <Button css={buttonText}>Misión</Button>
-                </NavLink>
-                <NavLink to='/contactenos'>
-                  <Button css={buttonText}>Contáctenos</Button>
-                </NavLink>
-              </Toolbar>
-            </AppBar>
-          </nav>
-        );
-    }
+function Nav(){
+  return(
+    <Box sx={nav}>
+      <AppBar sx={appBar} position='static'>
+        <Toolbar>                    
+          <Typography variant='h6' sx={title}>
+            {constants.APP_NAME}
+          </Typography>
+          <NavLink to='/'>
+            <Button sx={buttonText}>{constants.HOME}</Button>
+          </NavLink>
+          <NavLink to='/buscador'>
+            <Button sx={buttonText}>{constants.SEARCHER}</Button>
+          </NavLink>
+          <NavLink to='/mision'>
+            <Button sx={buttonText}>{constants.MISSION}</Button>
+          </NavLink>
+          <NavLink to='/contactenos'>
+            <Button sx={buttonText}>{constants.ABOUT_US}</Button>
+          </NavLink>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }
 
 export default Nav;

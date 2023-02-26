@@ -1,26 +1,22 @@
 import React from 'react';
 import * as constants from '../../constants';
+import Button from './../Utils/Button';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import ObjectCRUD from './../DashboardComponents/ObjectCRUD';
 
-/* Se siguió la guía que se encuentra en https://emotion.sh/docs/css-prop para permitir que el motor de css Emotion, 
- * el cual usa Material UI, permitiera estilizar los componentes y etiquetas HTML. La línea de abajo es un macro que 
- * permite el buen funcionamiento de Emotion, por lo que es muy importante no eliminarlo.
- */
+const dashboard = {
+  height: '80%',
+  width: '100%'
+}
 
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-
-const tabContent = css({
-    margin: '0 5vw',
-    width: '90vw'
-})
+const tabContent = {
+    width: '100%',
+}
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -31,16 +27,19 @@ TabPanel.propTypes = {
 function TabPanel({children, index, value}) {
   const isTabConsistent = value === index
   return (
-    <div id={'panel_' + {index}} aria-labelledby={'tab_' + {index}} role="tabpanel" hidden={!isTabConsistent} css={tabContent} >
+    <>
       {
         isTabConsistent && 
-        (<Box sx={{ p: 3 }}>
-          {
-            children
-          }
-        </Box>)
+        <Box 
+          id={'panel_' + {index}} 
+          aria-labelledby={'tab_' + {index}} 
+          role="tabpanel" 
+          hidden={!isTabConsistent} 
+          sx={tabContent} >
+            { children }
+        </Box>
       }
-    </div>
+    </>
   );
 }
 
@@ -52,13 +51,22 @@ function AdminDashboard(){
   };
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', height: '100vh'}}>
-        <Box sx={{display: 'flex', justifyContent: 'flex-end', width: '100vw'}}>
-            <Typography variant='h5' sx={{margin: '15px 0 0 5vw'}}>{constants.DASHBOARD_TITLE}</Typography>
+    <Box sx={dashboard}>
+        <Box sx={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
+            <Typography variant='h5' sx={{margin: '15px'}}>{constants.DASHBOARD_TITLE}</Typography>
             <Box sx={{flexGrow: 1}}/>
-            <Button id="logout" variant="contained" color="primary" sx={{margin: '15px'}} >{constants.LOG_OUT}</Button>
+            <Button 
+              id='logout' 
+              text={constants.LOG_OUT}
+              color="primary" />
         </Box>
-        <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="Panel de Administración" sx={{margin: '0 5vw', width: '90vw', borderBottom: 1, borderColor: 'divider'}} >
+        <Tabs 
+          aria-label="Panel de Administración"
+          value={value} 
+          onChange={handleChange} 
+          textColor="secondary" 
+          indicatorColor="secondary"  
+          sx={{width: '100%', borderBottom: 1, borderColor: 'divider'}} >
             <Tab id='tab_0' aria-controls='panel_0' label={constants.PRODUCTION_CLASS} />
             <Tab id='tab_1' aria-controls='panel_1' label={constants.AUTHOR_CLASS} />
             <Tab id='tab_2' aria-controls='panel_2' label={constants.CATEGORY_CLASS} />

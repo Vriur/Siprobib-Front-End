@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import MUITextField from '@mui/material/TextField';
 
-function TextField({id, label, value, required, fullWidth, handleChange, multiline = false, maxRows = 5}) {
+function TextField({id, label, value, required, fullWidth, handleChange, multiline = false, maxRows = 5, style = {marginTop: '4vh'}}) {
     return(
         <FormControl id={id} fullWidth={fullWidth} >
             <MUITextField 
@@ -16,7 +16,7 @@ function TextField({id, label, value, required, fullWidth, handleChange, multili
                 required={required} 
                 onChange={handleChange} 
                 variant='outlined' 
-                sx={{marginTop: '4vh'}}  />
+                sx={style} />
 
             {value === '' && required === true &&
             <FormHelperText>{constants.ERROR_TEXTFIELD_VALIDATOR}</FormHelperText>}

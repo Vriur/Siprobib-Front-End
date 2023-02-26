@@ -8,7 +8,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 
-function AutocompleteField({id, label, value, objectClass, required, handleChange, multiple = false}) {
+function AutocompleteField({id, label, value, objectClass, handleChange, multiple = false, required = false, style = { marginY: '2%' }}) {
     const [open, setOpen] = useState(false);
     const [data, setData] = useState([]);
     const [inputValue, setInputValue] = useState('');
@@ -43,7 +43,7 @@ function AutocompleteField({id, label, value, objectClass, required, handleChang
     }
 
     return (
-        <FormControl sx={{ marginY: '2%' }}>
+        <FormControl>
             <Autocomplete
                 open={open}
                 multiple={multiple}
@@ -56,6 +56,7 @@ function AutocompleteField({id, label, value, objectClass, required, handleChang
                 loadingText={constants.LOADING}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => option.label || ''}  
+                sx={style}
                 onOpen={handleOpen}
                 onClose={handleClose}
                 onChange={handleChange}

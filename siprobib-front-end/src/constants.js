@@ -31,11 +31,26 @@ export const CLASSES = {
  * al final de cada vector son para representar a la columna de botones (editar, detalles, remover) para cada fila.
  */
 export const COLUMN_LABELS = {
-    'producción': ['Título', 'Año', 'Categoría', 'Autores', 'Descriptores', ''],
-    'autor': ['Nombre', 'Tipo', ''],
-    'categoría': ['Categoría', ''],
-    'descriptor': ['Descriptor', ''],
-    'ubicación': ['Ubicación', '']
+    'producción': [
+        {title: 'Título', field: 'title'}, 
+        {title: 'Año', field: 'year'}, 
+        {title: 'Categoría', field: 'category'}, 
+        {title: 'Autores', field: 'authors'}, 
+        {title: 'Descriptores', field: 'descriptors'}
+    ],
+    'autor': [
+        {title: 'Nombre', field: 'name'},
+        {title: 'Tipo', field: 'type'}
+    ],
+    'categoría': [
+        {title: 'Categoría', field: 'description'}
+    ],
+    'descriptor': [
+        {title: 'Descriptor', field: 'description'}
+    ],
+    'ubicación': [
+        {title: 'Ubicación', field: 'detail'}
+    ]
 };
 
 
@@ -76,7 +91,7 @@ export const PRODUCTION_SUMMARY = 'Resumen de la producción: ';
 export const PRODUCTION_YEAR_OPTIONS = () => {
     let max = new Date().getFullYear()
     let min = 1950
-    let years = []
+    let years = [{label: 'Seleccione un año', value: ''}]
 
     for (let iterator = max; iterator >= min; --iterator) {
         let year = {label: iterator.toString(), value: iterator}
@@ -95,13 +110,72 @@ export const EDIT_SUCCESS_MESSAGE = "Se ha actualizado correctamente.";
 export const REMOVE_ERROR_MESSAGE = "No se ha eliminado correctamente.";
 export const REMOVE_SUCCESS_MESSAGE = "Se ha eliminado correctamente.";
 
+export const LOG_IN = 'Iniciar Sessión';
 export const LOG_OUT = 'Cerrar Sesión';
 export const CLOSE = 'Cerrar';
 
-export const ERROR_TEXTFIELD_VALIDATOR = 'Ingrese información en el campo obligatorio';
+export const LOG_IN_USERNAME = 'Nombre de usuario';
+export const LOG_IN_PASSWORD = 'Contraseña';
+
 export const ERROR_AUTOCOMPLETEFIELD_VALIDATOR = 'Seleccione una opción';
+export const ERROR_RADIO_BUTTON_VALIDATOR = 'Seleccione una operación';
+export const ERROR_TEXTFIELD_VALIDATOR = 'Ingrese información en el campo obligatorio';
 
 export const TABLE_PAGINATION_LABEL = 'Cantidad de filas por página';
 
 export const NO_OPTION_TEXT = 'No existe la opción';
 export const LOADING = 'Cargando'; 
+
+export const TABLE_LOCALIZATION = {
+    body: {
+        emptyDataSourceMessage: 'No hay ningún registro en la base de datos.',
+        filterRow: {
+            filterPlaceHolder: 'Filtrar',
+            filterTooltip: 'Filtrar'
+        },
+    },
+    header: {
+        actions: ''
+    },
+    pagination: {
+        labelDisplayedRows: '{from}-{to} de {count}',
+        labelRows: 'filas',
+        labelRowsPerPage: 'Filas por página',
+        firstAriaLabel: 'Primera página',
+        firstTooltip: 'Primera página',
+        previousAriaLabel: 'Página anterior',
+        previousTooltip: 'Página anterior',
+        nextAriaLabel: 'Siguiente página',
+        nextTooltip: 'Siguiente página',
+        lastAriaLabel: 'Última página',
+        lastTooltip: 'Última página',
+    }
+}
+
+export const APP_NAME = 'SIPROBIB';
+export const HOME = 'Inicio';
+export const SEARCHER = 'Buscador';
+export const MISSION = 'Misión';
+export const ABOUT_US = 'Contáctenos';
+
+export const MISSION_FIRST_PARAGRAPH = 'La \n base de datos de la Producción Bibliográfica Costarricense está conformada principalmente por los trabajos finales de graduación y los informes finales de las investigaciones realizadas en los centros e institutos de investigación de las instituciones productoras.';
+export const MISSION_SECOND_PARAGRAPH = 'Pretende potenciar temas de investigación que sean de especial interés en materia educativa, divulgar los resultados de los hallazgos y la producción de información científica en el ámbito educativo. La razón principal de la creación de esta herramienta es la necesidad de saber qué tipo de investigación se ha realizado en el país sobre los diversos temas relativos a la educación, con el fin de incidir en la política pública.';
+
+export const ABOUT_US_PARAGRAPH = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum, sed. Quos iure voluptatibus earum consequuntur voluptate quisquam veritatis possimus illum aliquam ex, sequi temporibus explicabo quidem, quo maxime amet! Dolorum. ';
+
+export const TWITTER_LINK = 'https://twitter.com/';
+export const INSTAGRAM_LINK = 'https://www.instagram.com/';
+export const GOOGLE_LINK = 'https://www.google.co.cr/';
+
+export const HOME_TITLE = 'Sistema de Producciones Bibliográficas';
+export const HOME_SUB_TITLE = 'Falta texto para colocar acá';
+
+export const SEARCH_TITLE = 'Título de la producción';
+export const SEARCH_AUTHORS = 'Autores de la producción';
+export const SEARCH_DESCRIPTORS = 'Descriptores de la producción';
+export const SEARCH_CATEGORY = 'Categoría de la producción';
+export const SEARCH_YEAR = 'Año de la producción';
+export const SEARCH_LOCATION = 'Ubicación de la producción';
+
+export const ADVANCE_SEARCH = 'Búsqueda avanzada';
+export const SEARCH = 'Buscar';

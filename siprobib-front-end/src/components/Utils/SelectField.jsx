@@ -6,9 +6,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function SelectField({id, label, value, data, handleChange}) {
+function SelectField({id, label, value, data, handleChange, style = { marginY: '5%' }}) {
     return (
-        <FormControl sx={{ marginY: '5%' }}>
+        <FormControl sx={style}>
             <InputLabel id={label}>{label}</InputLabel>
             <Select
                 id={id}

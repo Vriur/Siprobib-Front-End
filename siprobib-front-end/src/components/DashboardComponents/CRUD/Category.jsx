@@ -5,7 +5,7 @@ import TextField from '../../Utils/TextField';
 
 import Typography from '@mui/material/Typography';
 
-const Category = forwardRef(({dialogState, tableState, toastState}, ref) => {
+const Category = forwardRef(({dialogState, tableState, toastState, validForm}, ref) => {
     const [category, setCategory] = useState({
         instance: {
             id: dialogState.instanceId,
@@ -42,6 +42,11 @@ const Category = forwardRef(({dialogState, tableState, toastState}, ref) => {
             request(category, dialogState.objectClass, constants.DETAIL_ACTION, tableState, toastState);
         }
     }, []);
+
+    useEffect(() => {
+        let validation = category.instance.description.length;
+        validForm(!!validation);
+    }, [category.instance])
 
     function renderAction(){
         switch(dialogState.crudAction){

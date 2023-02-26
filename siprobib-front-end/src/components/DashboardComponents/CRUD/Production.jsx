@@ -7,7 +7,7 @@ import TextField from './../../Utils/TextField';
 
 import Typography from '@mui/material/Typography';
 
-const Production = forwardRef(({dialogState, tableState, toastState, checkFormValidity}, ref) => {
+const Production = forwardRef(({dialogState, tableState, toastState, validForm}, ref) => {
     const [production, setProduction] = useState({
         instance: {
             id: dialogState.instanceId,
@@ -130,6 +130,25 @@ const Production = forwardRef(({dialogState, tableState, toastState, checkFormVa
                 delete data.location.detail;
             }
 
+            data.authors.forEach(author => {
+                // Recordar que el author false es una persona, mientras que el true es una institución.
+                if(!author.type){
+                    author.label = author.lastName + ', ' + author.name;
+                }
+                else{
+                    author.label = author.institutionalName;
+                }
+                delete author.name;
+                delete author.lastName;
+                delete author.institutionalName;
+                delete author.type;
+            });
+
+            data.descriptors.forEach(descriptor => {
+                descriptor.label = descriptor.description;
+                delete descriptor.description;
+            });
+
             setProduction({
                 ...production,
                 instance: {
@@ -141,8 +160,8 @@ const Production = forwardRef(({dialogState, tableState, toastState, checkFormVa
                     webDirection: data.webDirection,
                     category: data.category,
                     location: data.location,
-                    authors: autocompleteOptions(constants.AUTHOR_CLASS, data.authors),
-                    descriptors: autocompleteOptions(constants.DESCRIPTOR_CLASS, data.descriptors)
+                    authors: data.authors,
+                    descriptors: data.descriptors
                 }
             });
         }
@@ -168,8 +187,13 @@ const Production = forwardRef(({dialogState, tableState, toastState, checkFormVa
     }, []);
 
     useEffect(() => {
-        checkFormValidity();
-    }, [production])
+        let validation = production.instance.title.length && production.instance.summary.length && 
+                         production.instance.year && production.instance.clasification.length &&
+                         production.instance.webDirection.length && production.instance.category &&
+                         production.instance.location && production.instance.descriptors.length &&
+                         production.instance.authors.length;
+        validForm(!!validation);
+    }, [production.instance])
 
     function renderAction(){
         switch(dialogState.crudAction){
@@ -201,6 +225,7 @@ const Production = forwardRef(({dialogState, tableState, toastState, checkFormVa
                     value={production.instance.authors}
                     objectClass={constants.AUTHOR_CLASS}
                     multiple={true}
+                    required={true} 
                     handleChange={production.handleAuthors} />
 
                 <AutocompleteField 
@@ -209,6 +234,7 @@ const Production = forwardRef(({dialogState, tableState, toastState, checkFormVa
                     value={production.instance.descriptors}
                     objectClass={constants.DESCRIPTOR_CLASS}
                     multiple={true}
+                    required={true} 
                     handleChange={production.handleDescriptors} />
 
                 <AutocompleteField 
@@ -325,6 +351,7 @@ const Production = forwardRef(({dialogState, tableState, toastState, checkFormVa
                     value={production.instance.authors}
                     objectClass={constants.AUTHOR_CLASS}
                     multiple={true}
+                    required={true} 
                     handleChange={production.handleAuthors} />
 
                 <AutocompleteField 
@@ -333,6 +360,7 @@ const Production = forwardRef(({dialogState, tableState, toastState, checkFormVa
                     value={production.instance.descriptors}
                     objectClass={constants.DESCRIPTOR_CLASS}
                     multiple={true}
+                    required={true} 
                     handleChange={production.handleDescriptors} />
 
                 <AutocompleteField 
