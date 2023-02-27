@@ -1,142 +1,120 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as constants from '../../constants';
+import { request } from './../Utils/Actions';
+import CardRow from '../Utils/CardRow';
+
+import { useParams } from "react-router-dom";
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { useParams } from "react-router-dom";
 
-/* Se siguió la guía que se encuentra en https://emotion.sh/docs/css-prop para permitir que el motor de css Emotion, 
- * el cual usa Material UI, permitiera estilizar los componentes y etiquetas HTML. La línea de abajo es un macro que 
- * permite el buen funcionamiento de Emotion, por lo que es muy importante no eliminarlo.
- */
+const style = {
+    container:{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '80%'
+    },
 
-/** @jsxImportSource @emotion/react */
-import { css, jsx } from '@emotion/react';
+    titleContainer:{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        width: '100%'
+    },
 
-const baseDeDatos = [
-    {
-        id: 1,
-        title: 'Conceptualización de la docencia universitaria en las Sedes Regionales de la Universidad de Costa Rica',
-        authors: 'EDGAR CHAVARRÍA S, KEMLY JIMÉNEZ FALLAS, ANA CECILIA HERNÁNDEZ R, MARÍA EUGENIA VENEGAS RENAULD',
-        descriptores: 'SEDES REGIONALES, UNIVERSIDAD DE COSTA RICA, DOCENCIA',
-        clasificación: '13.09.09 312',
-        año: '2002',
-        categoria: 'Proyecto IIMEC',
-        locations: 'SEDES REGIONALES, DOCENCIA, UNIVERSIDAD DE COSTA RICA',
-        abstract: 'El documento recoge el informe maestro del proyecto de investigación "Conceptualizacion de la docencia en las sedes regionales de la Universidad de Costa Rica". Tanto en el proceso de investigación, como en la elaboración del presente informe, se presentan resultados de trabajos compartidos, pero también de trabajos asumidos individualmente. Ello es así, no sólo por las características complejas que asumió la investigación, por las enormes dificultades que hubo que afrontar, pero también por la necesidad de respetar los enfoques de los investigadores que constituyeron el equipo. El propósito del proyecto es caracterizar la docencia desde las Sedes para ampliar, profundizar e interpretar sus significados en la prácticas pedagógicas de la Universidad de Costa Rica y así acercarse a la construcción de una pedagogía universitaria. La investigación no pretende homogenizar la función docente en la Universidad de Costa Rica, sino rescatar las particularidades en cada una de las sedes, incorporando las demandas del contexto regional y su relación con las exigencias y necesidades del contexto nacional e internacional. El Proyecto se planteó para ser desarrollado desde una perspectiva cualitativa. Bajo este tipo de aproximación, se tuvo claro en todo momento, el interés por conocer desde los propios actores, las formas mediante las cuales se asume y concreta la docencia y derivar desde el análisis y la reflexión, los constructos con los cuales se conceptualiza. El documento presenta introducción, conclusiones y recomendaciones generales y un informe de cada sede por separado.',
-        direccionWeb: 'http://repositorio.inie.ucr.ac.cr/jspui/handle/123456789/245'
+    title:{
+        marginBottom: '20px',
+        marginLeft: '8%' 
     },
-    {
-        id: 2,
-        title: 'Develando la acción pedagógica para transformarla.',
-        authors: 'ANA LUPITA CHAVES SALAS',
-        descriptores: '	LENGUAJE INTEGRAL, EDUCACIÓN PREESCOLAR, ESCRITURA, APRENDIZAJE, GÉNERO, LECTURA, INVESTIGACIÓN',
-        clasificación: '06.03.06 782',
-        año: '2001',
-        categoria: 'Proyecto IIMEC',
-        locations: 'Instituto de Investigación en Educación, Universidad de Costa Rica',
-        abstract: 'Esta investigación nace con el propósito de develar la práctica pedagógica que se produce en un salón de clase de educación preescolar que se fundamenta en la filosofía del "Lenguaje Integral", se desea interpretar las interacciones que se dan en el contexto natural del aula: las actitudes del maestro, los procesos iniciales de lecto-escritura, las relaciones de poder, el papel que desempeña la maestra, los niños y las niñas en el proceso de enseñanza y aprendizaje, la organización del tiempo y del espacio, en fin analizar diversos factores que intervienen en la realidad natural, compleja y singular del aula. Este proyecto de investigación no propone objetivos sino plantea interrogantes. Estas interrogantes se fueron transformando en el transcurso del proceso investigativo, gracias a las observaciones que se hicieron en el salón de clase y a la lectura de textos sobre pedagogía crítica e investigación cualitativa. En un primer momento, este estudio tuvo un enfoque psicologista que daba énfasis a los procesos iniciales de lecto-escritura, posteriormente se incluyó la perspectiva sociopolítica de la educación se eliminaron unas preguntas, otras se fusionaron y se plantearon otras relacionadas con género y relaciones de poder en el aula. Es una investigación de tipo cualitativa. Para recolectar la información se utilizó técnicas directas como la observación participantes y las entrevistas, y también técnicas indirectas como el análisis e documentos oficiales y personales que fueron facilitados por la maestra del grupo. Como resultado más importante está el cambio que experimentaron las investigadoras, ya que al incluir la perspectiva política de la educación en el estudio, se observó la realidad del aula de manera diferente, como un espacio donde se producen las desigualdades de la sociedad, muchas veces de manera inconciente.',
-        direccionWeb: 'http://repositorio.inie.ucr.ac.cr/jspui/handle/123456789/246'
-    },
-    {
-        id: 3,
-        title: 'Evaluación de los proyectos de innovación pedagógica e investigación educativa, en el marco del proyecto "Apoyo al mejoramiento inicial de docentes de la educación primaria básica de la coordinación educativa y cultural de centroamérica (CECC)"',
-        authors: 'ANA LUPITA CHAVES SALAS, JULIETA CASTRO BONILLA, JACQUELINE GARCÍA FALLAS, NAYIBE TABASH BLANCO',
-        descriptores: 'RELACIONES HUMANAS, FORMACIÓN DE DOCENTES, EDUCACIÓN PRIMARIA, EVALUACIÓN, PROYECTOS DE DESARROLLO',
-        clasificación: '01.01.06 272',
-        año: '2002',
-        categoria: 'Proyecto IIMEC',
-        locations: 'Instituto de Investigación en Educación, Universidad de Costa Rica',
-        abstract: 'El objeto de esta investigación es la evaluación de los proyectos de innovación e investigación educativa llevados a cabo en los países centroamericanos en el marco del programa "Apoyo al Mejoramiento de la Formación Inicial de Docentes de la Educación Primaria o Básica en Centroamérica", desarrollado por la Coordinación Educativa y Cultural Centroamericana y la Embajada Real de los Países Bajos. El documento tiene tres capítulos donde se desarrollan los temas de: Contexto de la evaluación, se incluye la información correspondiente a objetivos, marco conceptual y diseño metodológico para llevar a cabo las propuestas evaluativas; Análisis y resultados, se incluyen las características generales de los proyectos de investigación e innovación educativa. Además se presenta el estudio realizado por el equipo de evaluadoras a los once proyectos de investigación educativa, organizados por país; y Consideraciones generales, se presenta la reflexión final del equipo de evaluadoras en torno a los proyectos analizados. Los objetivos de la investigación son: - Valorar el impacto y la influencia potenciales que podrían tener los resultados e los proyectos ejecutados, en los formadores y en la formación inicial de docentes en sus propios países y en la región en general. - Valorar el papel que jugó, en el desarrollo de los proyectos la supervisión ejercida por la Dirección del proyecto, la coordinación nacional del proyecto y los supervisores nombrados para proyectos de investigación. - Valorar el impacto e influencia posible en los resultados de los proyectos de innovación pedagógica en la actualización profesional de los maestros centroamericanos. Los resultados más importantes fueron: - Las propuestas de investigación educativa incorporaron sectores sociales y regiones que denotan marcadas necesidades educativas y socioeconómicas, según el contexto de cada país. - Algunos de los proyectos de investigación tienen calidad técnica y claridad conceptual. Asimismo se proyectan hacia una formación integral del ser humano, capas de crear y trasformar su contexto.',
-        direccionWeb: 'http://repositorio.inie.ucr.ac.cr/jspui/handle/123456789/247'
-    },
-    {
-        id: 4,
-        title: 'El trabajo docente de los profesores de matemáticas: Diseño, desarrollo y análisis de estrategias para su transformación.',
-        authors: 'ILEANA CONTRERAS MONTES DE OCA',
-        descriptores: 'MATEMÁTICAS, CURRÍCULO, EDUCACIÓN SECUNDARIA',
-        clasificación: '18.08.01 363',
-        año: '2002',
-        categoria: 'Proyecto IIMEC',
-        locations: 'Instituto de Investigación en Educación, Universidad de Costa Rica',
-        abstract: 'La investigación a la que corresponde este informe tiene como antecedente inmediato un estudio anterior titulado “El rol del profesor de matemáticas en la Educación secundaria: Algunos determinantes y consecuencias”. Como resultado de dicho esfuerzo inicial, surgió la inquietud por indagar estrategias de trabajo con los profesores en servicio y con los estudiantes de carrera de enseñanza de las matemáticas, que previesen una trasformación del quehacer docente en este campo, de forma tal que se diese un acercamiento entre la teoría y la practica de la educación de la matemática, Juntas estas dos investigaciones constituyen una línea de investigación alrededor del quehacer docente de los profesores de matemáticas en la educación secundaria. Los objetivos más importantes de esta investigación fueron: ? ¿De qué manera la participación de los departamentos de matemáticas en la construcción de nuevas experiencias de trabajo, coherentes con lo que se espera del quehacer docente de los profesores que lo integran, puede incidir en la trasformación del quehacer cotidiano de los profesores y el fortalecimiento de la imagen que éstos tienen en su labor? ? ¿Que incidencia puede tener el intercambio y difusión de experiencias innovadoras en la trasformación profesional de los profesores de matemáticas que actualmente ejercen esa profesión? ? ¿Qué criterios nos permiten operacionalizar el rol de la literatura reciente y los enfoque vigentes en la política educativa y en los programas de estudio, perfilan como el esperado en le desempeño profesional de los profesores de matemáticas? Los resultados más relevantes fueron los siguientes: ? Se derivó un conjunto de propuestas concretas-lineamientos, metodología, materiales- para mejorar el proceso de formación inicial de los profesores de matemáticas en la educación secundaria. ? Se impulsó una serie de actividades nacionales, que continúan hasta la fecha, dedicadas análisis e intercambio de experiencias en este campo. ? Se identificaron alternativas de difusión e intercambio de experiencias innovadoras orientadas a la trasformación del quehacer docente de los profesores de matemáticas en la dirección establecida en los criterios consensuados.',
-        direccionWeb: 'http://repositorio.inie.ucr.ac.cr/jspui/handle/123456789/248'
-    },
-    {
-        id: 5,
-        title: 'Socialización genérica e identidad profesional en Trabajo Social',
-        authors: 'XINIA FERNÁNDEZ VARGAS',
-        descriptores: 'TRABAJO SOCIAL, INFLUENCIA SOCIAL, TRABAJADORES SOCIALES, IDENTIDAD, GÉNERO',
-        clasificación: '13.09.09 877',
-        año: '2002',
-        categoria: 'Proyecto IIMEC',
-        locations: 'Instituto de Investigación en Educación, Universidad de Costa Rica',
-        abstract: 'La investigación busca explicar las relaciones entre la socialización genérica y la construcción de las identidades personal y profesional de las y los trabajadores sociales. El Trabajo Social como profesión conformada mayoritariamente por mujeres reproduce las características que la sociedad patriarcal le asigna a éstas y a lo femenino. Se busca a partir de los resultados la incorporación en las distintas instancias de formación de la perspectiva de género como opción explicativa, formativa y de análisis para la modificación de las relaciones de desigualdad que se viven cotidianamente en los espacios familiares y laborales de esos profesionales. La metodología empleada es cualitativa. Busca rescatar las percepciones y significados que las personas participantes dan a lo femenino y lo masculino, cómo lo viven en sus experiencias concretas. La perspectiva de género y la teoría de las representaciones sociales son los marcos teóricos de referencia para el análisis de la información la que se recopiló a partir de la reconstrucción de las historias de vida de cuatro mujeres y tres varones profesionales en Trabajo Social. El análisis incluyó la participación permanente de las personas entrevistadas y fue una constante durante el proceso de investigación lo que a su vez permitió construir rupturas de los esquemas aprendidos tanto en ellas como en la investigadora. Las historias de vida evidenciaron que todas las personas participantes fueron construidas a partir de los esquemas de crianza definidos en las sociedades patriarcales. Hombres y mujeres asumen características diferenciadas según su sexo biológico. Las relaciones sociales que se establecen a partir de esos patrones reproducen y legitiman la desvalorización de lo femenino frente a lo masculino. Las y los trabajadores sociales entrevistados reproducen en sus vidas personales y laborales las asimetrías derivadas del patriarcado sin que se percaten de los modelos a que responden sus actuaciones. Las participantes han asumido la maternidad y todos sus mandatos como su primera y casi exclusiva obligación, lo que tiene implicaciones en sus posibilidades de realizar cualquier otro tipo de actividad extra a su empleo. Los participantes no muestran que las obligaciones derivadas de la paternidad y la familia sean obstáculos para sus metas personales. La elección de carrera está influenciada por las características genéricas. El Trabajo Social es considerado una profesión de servicio, ayuda y búsqueda de soluciones a los problemas y necesidades de otras personas. Desde sus orígenes han sido mayoritariamente mujeres las vinculadas a la profesión al creérseles más sensibles e interesadas en lo social y en las necesidades de la gente. Las funciones y tareas que las personas entrevistadas realizan en sus lugares de trabajo reproducen las tareas que realizan las mujeres en la sociedad. La formación profesional carece de una visión de género que permita evidenciar cómo los procesos de socialización permean todas las actividades humanas y las relacionadas con el ejercicio profesional. Deben incluirse en el curriculum de la Escuela actividades académicas y vivenciales, bibliografía y nuevos enfoques teóricos que permitan hacer rupturas significativas con los esquemas que subyacen en la forma en que están planteadas actualmente las cosas. Los procesos de capacitación y sensibilización deben atravesar todas las actividades que se realicen e involucrar a docentes, estudiantes y personal administrativo. Para replantear y fortalecer la identidad profesional debemos empezar necesariamente por la identidad genérica.',
-        direccionWeb: 'http://repositorio.inie.ucr.ac.cr/jspui/handle/123456789/249'
-    },
-    {
-        id: 6,
-        title: 'La práctica curricular de la educación superior costarricense (1843-1941): Fundamentos de una teoría curricular',
-        authors: 'ALICIA SEQUEIRA RODRÍGUEZ',
-        descriptores: 'CURRÍCULO, EDUCACIÓN SUPERIOR',
-        clasificación: '06.03.06 389',
-        año: '2002',
-        categoria: 'Proyecto IIMEC',
-        locations: 'Instituto de Investigación en Educación, Universidad de Costa Rica',
-        abstract: 'Esta investigación pretendió responder a la pregunta ¿Cuáles son las características teóricas que ha generado la práctica curricular de la Educación Superior de Costa Rica entre 1843-1941? El propósito fue aclarar el papel de la práctica de la educación superior en el período señalado de manera que los hechos curriculares ocurridos en el pasado pudieran dar luz para atesorar lo pertinente y, a la vez, poner atención a los factores que no contribuyeron a dar impulso a la educación superior. Los objetivos propuestos para la investigación no se alcanzaron en su totalidad como se indica en las conclusiones, implicaciones y recomendaciones; debido a que la investigación se tuvo que interrumpir por tiempos prolongados y, por otra parte, el tiempo asignado fue demasiado corto para poder concluir una tarea de esta magnitud pues el período investigado es de un siglo.',
-        direccionWeb: 'http://repositorio.inie.ucr.ac.cr/jspui/handle/123456789/250'
-    },
-]
 
-const abstract = css({
-    margin: "3vh 0"
-})
+    card:{
+        borderRadius: '30px',
+        width: '90%'
+    },
 
-const card = css({
-    margin: "10vh 10vw"
-})
+    cardRow:{
+        marginRight: '10px'
+    }
+}
 
 /*
  * Componente encargado de desplegar la información completa de la producción correspondiente. dicha producción es la
  * dueña del id que se envia como parámetro en el enlace.
  */
 function Result(props){
-    let { id } = useParams();
-    const data = baseDeDatos.filter(elemento => elemento.id == id);
+    const { id } = useParams();
+    const [data, setData] = useState({
+        instance: {
+            id: id,
+            title: '',
+            summary: '',
+            year: '',
+            clasification: '',
+            webDirection: '',
+            category: '',
+            location: '',
+            authors: '',
+            descriptors: ''
+        },
+        handleUpdate: function(data){
+            setData({
+                ...data,
+                id: data.id,
+                title: data.title,
+                summary: data.summary,
+                year: data.year,
+                clasification: data.clasification,
+                webDirection: data.webDirection,
+                category: data.category,
+                location: data.location,
+                authors: data.authors,
+                descriptors: data.descriptors,
+            })
+        }
+    });
+
+    const cardRows = [
+        {label: constants.RESULT_TITLE, value: data.title, paragraph: false},
+        {label: constants.RESULT_AUTHORS, value: data.authors, paragraph: false},
+        {label: constants.RESULT_DESCRIPTORS, value: data.descriptors, paragraph: false},
+        {label: constants.RESULT_CLASIFICATION, value: data.clasification, paragraph: false},
+        {label: constants.RESULT_CATEGORY, value: data.category, paragraph: false},
+        {label: constants.RESULT_LOCATION, value: data.location, paragraph: false},
+        {label: constants.RESULT_YEAR, value: data.year, paragraph: false},
+        {label: constants.RESULT_WEB_DIRECTION, value: data.webDirection, paragraph: false},
+        {label: constants.RESULT_SUMMARY, value: data.summary, paragraph: true}
+    ]
+
+    useEffect(() => {
+        async function fetchData(){
+            request(data, constants.PRODUCTION_CLASS, constants.DETAIL_ACTION, null, null);
+        }
+        fetchData();
+    }, []);
 
     return(
-        <div>
-            <Card css={card}>
+        <Box sx={style.container}>
+            <Box sx={style.titleContainer}>
+                <Typography variant='h4' sx={style.title}>{constants.RESULT_PAGE_TITLE}</Typography>
+            </Box>
+
+            <Card raised={true} sx={style.card}>
                 <CardContent>
-                    <Typography variant="h5" component="div">
-                        {data[0].title}
-                    </Typography>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        {data[0].authors}
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        {data[0].descriptores}
-                    </Typography>
-                    <Typography variant="body2">
-                        {data[0].clasificación}
-                    </Typography>
-                    <Typography variant="body2">
-                        {data[0].año}
-                    </Typography>
-                    <Typography variant="body2">
-                        {data[0].categoria}
-                    </Typography>
-                    <Typography variant="body2">
-                        {data[0].locations}
-                    </Typography>
-                    <Typography variant="body2" css={abstract}>
-                        {data[0].abstract}
-                    </Typography>
-                    <Typography variant="body2">
-                        <a href={data[0].direccionWeb}>{data[0].direccionWeb}</a>
-                    </Typography>
+                    {cardRows.map(row => 
+                        <CardRow 
+                            key={row.label}
+                            label={row.label} 
+                            value={row.value} 
+                            variant='subtitle1' 
+                            style={style.cardRow}
+                            paragraph={row.paragraph} />
+                    )}
                 </CardContent>
             </Card>
-        </div>
+        </Box>
     );
 }
 

@@ -8,42 +8,48 @@ import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-const nav = {
+const style = {
+  nav:{
     flexGrow: 1
-};
+  },
 
-const appBar = {
+  appBar:{
     main: '#999999',
     contrastText: '#fff',
-};
+  },
 
-const title = {
+  title:{
     flexGrow: 1,
-};
+  },
 
-const buttonText = {
+  buttonText:{
     color: 'white',
-};
+  },
+
+  link:{
+    textDecoration: 'none'
+  }
+}
 
 function Nav(){
   return(
-    <Box sx={nav}>
-      <AppBar sx={appBar} position='static'>
+    <Box sx={style.nav}>
+      <AppBar sx={style.appBar} position='static'>
         <Toolbar>                    
-          <Typography variant='h6' sx={title}>
+          <Typography variant='h6' sx={style.title}>
             {constants.APP_NAME}
           </Typography>
-          <NavLink to='/'>
-            <Button sx={buttonText}>{constants.HOME}</Button>
+          <NavLink to='/' style={style.link}>
+            <Button sx={style.buttonText}>{constants.HOME}</Button>
           </NavLink>
-          <NavLink to='/buscador'>
-            <Button sx={buttonText}>{constants.SEARCHER}</Button>
+          <NavLink to='/buscador' style={style.link}>
+            <Button sx={style.buttonText}>{constants.SEARCHER}</Button>
           </NavLink>
-          <NavLink to='/mision'>
-            <Button sx={buttonText}>{constants.MISSION}</Button>
+          <NavLink to='/mision' style={style.link}>
+            <Button sx={style.buttonText}>{constants.MISSION}</Button>
           </NavLink>
-          <NavLink to='/contactenos'>
-            <Button sx={buttonText}>{constants.ABOUT_US}</Button>
+          <NavLink to='/contactenos' style={style.link}>
+            <Button sx={style.buttonText}>{constants.ABOUT_US}</Button>
           </NavLink>
         </Toolbar>
       </AppBar>

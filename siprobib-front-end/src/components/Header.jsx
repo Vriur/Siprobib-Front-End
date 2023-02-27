@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
 const header = {
-  height: '20%',
+  height: '18%',
   width: '100%'
 }
 

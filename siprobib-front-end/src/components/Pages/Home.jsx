@@ -10,7 +10,7 @@ const home = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  height: '80%',
+  height: '82%',
   backgroundImage: 'url(' + Banner + ')',
   backgroundSize: 'cover',
   color: 'white',

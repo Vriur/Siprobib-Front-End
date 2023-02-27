@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as constants from './../../constants';
 import AutocompleteField from './../Utils/AutocompleteField';
 import Button from '../Utils/Button';
@@ -16,6 +16,7 @@ const style = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        marginY: '50px',
     },
 
     formRow: {
@@ -40,8 +41,7 @@ const style = {
     }
 }
 
-function SearchForm({state, handleSearch}){
-    const [validForm, setValidForm] = useState(true);
+function SearchForm({state, buttonDisabled, handleValidation, handleSearch}){
     const binaryOperations = [
         {label: 'not', value: 'not'}, 
         {label: 'and', value: 'and'},
@@ -72,7 +72,7 @@ function SearchForm({state, handleSearch}){
                 validation = validation || !state.radioButtons.radioButtonYear;
             }
         }
-        setValidForm(validation);
+        handleValidation(validation);
     }, [state]);
 
     function handleAuthors(event, newValue){
@@ -214,7 +214,13 @@ function SearchForm({state, handleSearch}){
     function handleAdvanceSearch(event){
         state.handleUpdate({
             ...state,
-            radioButtons: {...state.radioButtons},
+            radioButtons: {
+                radioButtonAuthors: '',
+                radioButtonCategory: '',
+                radioButtonDescriptors: '',
+                radioButtonLocation: '',
+                radioButtonYear: ''
+            },
             searchFields: {
                 ...state.searchFields,
                 authors: [],
@@ -357,7 +363,7 @@ function SearchForm({state, handleSearch}){
             <Button
                 id='search_button'
                 text={constants.SEARCH}
-                isButtonDisabled={validForm}
+                isButtonDisabled={buttonDisabled}
                 handleClick={handleSearch}
                 color='primary' />
         </Box>

@@ -179,3 +179,15 @@ export const SEARCH_LOCATION = 'Ubicación de la producción';
 
 export const ADVANCE_SEARCH = 'Búsqueda avanzada';
 export const SEARCH = 'Buscar';
+
+export const RESULT_AUTHORS = 'Autores: ';
+export const RESULT_CATEGORY = 'Categoría: ';
+export const RESULT_CLASIFICATION = 'Clasificación: ';
+export const RESULT_DESCRIPTORS = 'Descriptores: ';
+export const RESULT_LOCATION = 'Ubicación: ';
+export const RESULT_SUMMARY = 'Resumen: ';
+export const RESULT_TITLE = 'Título: ';
+export const RESULT_WEB_DIRECTION = 'Dirección web: ';
+export const RESULT_YEAR = 'Año: ';
+
+export const RESULT_PAGE_TITLE = 'Información de la producción';
