@@ -12,7 +12,7 @@ const style = {
     card:{
         marginBottom: '10px',
         borderRadius: '30px',
-        width: '90%',
+        width: '100%',
     },
 
     cardTitle:{
@@ -65,7 +65,8 @@ function SearchResult({data}){
                             <CardRow 
                                 label={constants.RESULT_AUTHORS} 
                                 value={data.authors} 
-                                variant='subtitle1' />
+                                variant='subtitle1'
+                                style={style.cardRow} />
                         } />
                     <CardContent sx={style.cardContent}>
                         {cardRows.map(row => 

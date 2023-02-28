@@ -7,6 +7,7 @@ import SelectField from './../Utils/SelectField';
 import TextField from './../Utils/TextField';
 
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import InputLabel from '@mui/material/InputLabel';
 import Switch from '@mui/material/Switch';
 
@@ -16,6 +17,8 @@ const style = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: '30px',
+        width: '90%',
         marginY: '50px',
     },
 
@@ -43,9 +46,9 @@ const style = {
 
 function SearchForm({state, buttonDisabled, handleValidation, handleSearch}){
     const binaryOperations = [
-        {label: 'not', value: 'not'}, 
-        {label: 'and', value: 'and'},
-        {label: 'or', value: 'or'}
+        {label: constants.BINARY_OPERATION_NOT, value: constants.BINARY_OPERATION_NOT}, 
+        {label: constants.BINARY_OPERATION_AND, value: constants.BINARY_OPERATION_AND},
+        {label: constants.BINARY_OPERATION_OR, value: constants.BINARY_OPERATION_OR}
     ];
 
     useEffect(() => {
@@ -234,7 +237,7 @@ function SearchForm({state, buttonDisabled, handleValidation, handleSearch}){
     }
 
     return(
-        <Box sx={style.form}>
+        <Card raised={true} sx={style.form}>
             <Box sx={style.formRow}>
                 <TextField 
                     id='search_title'
@@ -366,7 +369,7 @@ function SearchForm({state, buttonDisabled, handleValidation, handleSearch}){
                 isButtonDisabled={buttonDisabled}
                 handleClick={handleSearch}
                 color='primary' />
-        </Box>
+        </Card>
     );
 }
 

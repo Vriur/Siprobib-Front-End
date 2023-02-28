@@ -1,14 +1,25 @@
 import React from 'react';
+import * as constants from './../../constants';
 import SearchResult from './SearchResult';
 
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const style = {
     cardGrid:{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '90%'
+    },
+
+    noResults: {
+        paddingY: '10%'
+    },
+
+    footer: {
+        height: '50px'
     }
 }
 
@@ -21,7 +32,10 @@ const style = {
 function SearchResults({data}){
     return(
         <Box sx={style.cardGrid}>
-            {data.map(result => ( <SearchResult key={result.id} data={result} /> ))}
+            {data.length ? data.map(result => ( <SearchResult key={result.id} data={result} /> ))
+                         : <Typography variant='h5' sx={style.noResults}>{constants.NO_RESULTS}</Typography>}
+
+            <Box sx={style.footer} />
         </Box>
     );
 }

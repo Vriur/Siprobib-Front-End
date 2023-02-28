@@ -191,3 +191,8 @@ export const RESULT_WEB_DIRECTION = 'Dirección web: ';
 export const RESULT_YEAR = 'Año: ';
 
 export const RESULT_PAGE_TITLE = 'Información de la producción';
+export const NO_RESULTS = 'No hay resultados.';
+
+export const BINARY_OPERATION_AND = 'and';
+export const BINARY_OPERATION_NOT = 'not';
+export const BINARY_OPERATION_OR = 'or';
